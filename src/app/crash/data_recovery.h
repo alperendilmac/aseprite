@@ -10,6 +10,7 @@
 #pragma once
 
 #include "app/crash/recovery_config.h"
+#include "app/crash/auto_save_config.h"
 #include "app/crash/session.h"
 #include "base/disable_copying.h"
 #include "obs/signal.h"
@@ -23,6 +24,7 @@ namespace app {
 class Context;
 namespace crash {
   class BackupObserver;
+  class AutoSaver;
 
   class DataRecovery {
   public:
@@ -58,9 +60,11 @@ namespace crash {
     mutable std::mutex m_sessionsMutex;
     std::thread m_thread;
     RecoveryConfig m_config;
+    AutoSaveConfig m_autoSaveConfig;
     Sessions m_sessions;
     SessionPtr m_inProgress;
     BackupObserver* m_backup;
+    AutoSaver* m_autoSaver;
     std::atomic<bool> m_searching;
 
     DISABLE_COPYING(DataRecovery);

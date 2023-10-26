@@ -357,11 +357,31 @@ public:
       keepEditedSpriteDataFor()->setEnabled(false);
     }
 
+    if (m_pref.general.autoSave())
+    {
+      enableAutoSave()->setSelected(true);
+      std::cout << "AutoSave is enabled" << std::endl;
+    }
+    enableAutoSave()->Click.connect(
+      [this]() {
+        /*
+        const bool state = enableAutoSave()->isSelected();
+        autoSavePeriod()->setEnabled(state);
+        autoSaveKeepBackups()->setEnabled(state);
+        autoSaveKeepBackupsFor()->setEnabled(state);
+        */
+       std::cout << "AutoSave click connect!" << std::endl;
+      });
+    
     if (m_pref.general.keepClosedSpriteOnMemory())
       keepClosedSpriteOnMemory()->setSelected(true);
 
     if (m_pref.general.showFullPath())
       showFullPath()->setSelected(true);
+
+    autoSavePeriod()->setSelectedItemIndex(
+      autoSavePeriod()->findItemIndexByValue(
+        base::convert_to<std::string>(m_pref.general.autoSavePeriod())));
 
     dataRecoveryPeriod()->setSelectedItemIndex(
       dataRecoveryPeriod()->findItemIndexByValue(
@@ -693,7 +713,15 @@ public:
 
       warnings += "<<- " + Strings::alerts_restart_by_preferences_save_recovery_data_period();
     }
+    
+    newPeriod = base::convert_to<double>(autoSavePeriod()->getValue());
+    if (enableAutoSave()->isSelected() != m_pref.general.autoSave() ||
+        newPeriod != m_pref.general.autoSavePeriod()) {
+      m_pref.general.autoSave(enableAutoSave()->isSelected());
+      m_pref.general.autoSavePeriod(newPeriod);
 
+      //warnings += "<<- " + Strings::alerts_restart_by_preferences_auto_save_period();
+    }
     int newLifespan = base::convert_to<int>(keepEditedSpriteDataFor()->getValue());
     if (keepEditedSpriteData()->isSelected() != m_pref.general.keepEditedSpriteData() ||
         newLifespan != m_pref.general.keepEditedSpriteDataFor()) {

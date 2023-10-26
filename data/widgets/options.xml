@@ -143,6 +143,19 @@
 
           <separator text="@.recover_files" horizontal="true" />
           <grid columns="2">
+            <check id="enable_auto_save" 
+                   text="@.auto_save_data"
+                   tooltip="@.auto_save_data_tooltip" />
+            <combobox id="auto_save_period">
+              <listitem text="@.10_seconds" value="0.1667" />
+              <listitem text="@.30_seconds" value="0.5" />
+              <listitem text="@.1_minute" value="1" />
+              <listitem text="@.2_minutes" value="2" />
+              <listitem text="@.5_minutes" value="5" />
+              <listitem text="@.10_minutes" value="10" />
+              <listitem text="@.15_minutes" value="15" />
+              <listitem text="@.30_minutes" value="30" />
+            </combobox>
             <check id="enable_data_recovery"
                    text="@.auto_save_recovery_data"
                    tooltip="@.auto_save_recovery_data_tooltip" />

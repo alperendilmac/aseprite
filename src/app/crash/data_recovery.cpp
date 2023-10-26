@@ -12,6 +12,7 @@
 #include "app/crash/data_recovery.h"
 
 #include "app/crash/backup_observer.h"
+#include "app/crash/auto_save.h"
 #include "app/crash/log.h"
 #include "app/crash/session.h"
 #include "app/pref/preferences.h"
@@ -45,6 +46,8 @@ DataRecovery::DataRecovery(Context* ctx)
   else
     m_config.keepEditedSpriteDataFor = 0;
 
+  m_autoSaveConfig.autoSavePeriod = pref.general.autoSavePeriod();
+
   ResourceFinder rf;
   rf.includeUserDir(base::join_path("sessions", ".").c_str());
   m_sessionsDir = rf.getFirstOrCreateDefault();
@@ -76,6 +79,7 @@ DataRecovery::DataRecovery(Context* ctx)
   RECO_TRACE("RECO: Session in progress '%s'\n", newSessionDir.c_str());
 
   m_backup = new BackupObserver(&m_config, m_inProgress.get(), ctx);
+  m_autoSaver = new AutoSaver(&m_autoSaveConfig, m_inProgress.get(), ctx);
 
   g_stillAliveFlag = true;
 }

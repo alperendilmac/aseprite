@@ -123,6 +123,7 @@ if(ENABLE_DATA_RECOVERY)
     crash/read_document.cpp
     crash/session.cpp
     crash/write_document.cpp
+    crash/auto_save.cpp
     ui/data_recovery_view.cpp)
 endif()
 
