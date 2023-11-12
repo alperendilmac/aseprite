@@ -1052,6 +1052,7 @@ void FileOp::operate(IFileOpProgress* progress)
           makeDirectories();
 
           // Call the "save" procedure... did it fail?
+          std::cout << "Save origin 1" << std::endl;
           if (!m_format->save(this)) {
             setError("Error saving frame %d in the file \"%s\"\n",
                      outputFrame+1, m_filename.c_str());
@@ -1077,6 +1078,7 @@ void FileOp::operate(IFileOpProgress* progress)
                                      m_roi.fileCanvasSize());
       }
 
+      std::cout << "Save origin 2" << std::endl;
       // Call the "save" procedure.
       if (!m_format->save(this)) {
         setError("Error saving the sprite in the file \"%s\"\n",

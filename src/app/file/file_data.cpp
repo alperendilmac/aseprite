@@ -375,7 +375,7 @@ void save_aseprite_data_file(const std::string& dataFilename, const doc::Documen
 {
   XmlDocumentRef xmlDoc = open_xml(dataFilename);
   TiXmlHandle handle(xmlDoc.get());
-
+  std::cout << "Saving aseprite data file" << dataFilename <<std::endl;
   TiXmlElement* xmlSlices = handle
     .FirstChild("sprite")
     .FirstChild("slices").ToElement();

@@ -14,7 +14,7 @@
 #include "app/file/format_options.h"
 
 #include <algorithm>
-
+#include <iostream>
 namespace app {
 
 FileFormat::FileFormat()
@@ -50,7 +50,7 @@ bool FileFormat::load(FileOp* fop)
 bool FileFormat::save(FileOp* fop)
 {
   DRM_INVALID return false;
-
+  std::cout << "Saving file: FileFormat::save" << std::endl;
   ASSERT(support(FILE_SUPPORT_SAVE));
   return onSave(fop);
 }

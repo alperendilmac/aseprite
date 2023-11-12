@@ -345,7 +345,7 @@ bool AseFormat::onSave(FileOp* fop)
   const Sprite* sprite = fop->document()->sprite();
   FileHandle handle(open_file_with_exception_sync_on_close(fop->filename(), "wb"));
   FILE* f = handle.get();
-
+  std::cout << "Saving file to " << fop->filename() << std::endl;
   // Write the header
   dio::AsepriteHeader header;
   ase_file_prepare_header(f, &header, sprite,
